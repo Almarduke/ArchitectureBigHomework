@@ -1671,71 +1671,72 @@ CS架构复杂度低，前期开发成本较小，但后期维护成本更高，
 
 <br/>
 
+<br/>
+
 ## VI. 上下文图、UML类图及其映射
 
-1. **上下文图**
+### 6.1 上下文图
 
-   ![6.1-上下文图](pics/6.1-上下文图.jpg)
-
-2. **UML类图**
-
-   ![6.2-UML类图]()
-
-3. **类的映射**
-
-
-   | 模块         | 组件            | 类 |
-   | ----------- | --------------- | - |
-   |      服务集群       | 业务模块         | ConcreteService, ConcreteServiceImpl |
-   |             | 权限认证模块      | ServiceDispatcher |
-   |             | 服务监控模块      | StatusUpdater |
-   |             | 数据库模块       | DaoFactory |
-   |             | 外部系统交流模块 | ExternalInterface |
-   | 注册集群     |                 | |
-   | 通信机制模块 | 数据接收模块     | Receiver, ReceiverImpl |
-   |             | 数据校验模块     | Validator, ParityChecker |
-   |             | 任务优先队列模块 | QueryOrder |
-   |             | 加密模块         | Encryptor, Ssl_TslImpl |
-   |             | 数据发送模块     | Sender, SenderImpl |
-   |             | 通信检测模块     | ConnectionChecker, HearbeatImpl |
-   |  API网关            | 身份认证，访问控制模块 | SecurityCheck, RequestHandler |
-   |             | 缓存模块        | ServiceCache |
-   |             | 请求解析模块     | RequestHandler, RestController |
-   |             | HeartBeat模块   | ServiceFinder |
-   |             | 请求转发模块     | RPCProxy      |
-   |             | 负载均衡模块     | RPCProxy      |
-   | 数据存储模块 | 存储服务器       | User, Movie, Cinema, Picture, LongText, Video |
-   |             | 文件存储模块     | PictureDao, PictureDaoImpl, LongTextDao, LongTextDaoImpl, VideoDao, VideoDaoImpl |
-   |             | 数据库          | UserDao, UserDaoImpl, MovieDao, MovieDaoImpl, CinemaDao, CinemaDaoImpl |
-   |             | 后台管理系统     | StateService |
-   |             | 数据库操作       | SqlGenerator, SqlGeneratorImpl |
-
+![6.1-上下文图](pics/6.1-上下文图.png)
 
 <br/>
 
 <br/>
 
-## VII. 总结
+### 6.2 微服务架构类图
 
-### 7.1 挑战与经验
-
-在本次作业刚开始时，我们对于分布式和微服务架构还知之甚少，因此弄清该架构的一些实现细节——如不同节点间的通信和同步机制，就是一个不小的挑战。我们为此查阅了大量相关资料，参考学习了几个公司或组织构建的分布式系统，最终完成了对该架构的设计和分析。经过这次学习，我们对分布式微服务有了更深的了解。
-
-软件架构的设计过程中，利用ADD方法是本次项目实践的核心。在ADD方法的要求下，我们将设计的关注重点从功能转向质量属性。首先确定ASR，之后在每一次迭代中，重点关注一个模块，将备选方案的利弊进行文档化，然后再选出相对于ASR最适合的方案。遵循ADD这一套成熟的方法，我们得以在流程上按部就班，而将精力集中于对系统中具体问题的考量。这次作业让我们体验到了体系结构设计方法的重要性。
-
-在此次架构设计中，我们使用了两种架构，对于项目的各个部分进行了细致入微的拆解，通过这次学习，我们充分积累了组内合作和软件体系结构的构建经验，为接下来的项目开展奠定了坚实的基础。挑战是第一次做架构方面的工作，对于微服务架构仍然不是很熟悉，以及各个模块应该采用的策略之前都没有系统地思考过利弊，所以难免有疏漏和不规范之处。
+![6.2-UML类图](pics/6.2-微服务架构类图.png)
 
 <br/>
 
-### 7.2 组员分工
+<br/>
 
-| 姓名   | 学号      | 分工 |
-| ------ | --------- | ---- |
-| 陈骁   | 161250014 |      |
-| 吉宇哲 | 161250047 |      |
-| 赖健明 | 161250051 |      |
-| 连远翔 | 161250065 |      |
-| 何天⾏ | 161250039 |   微服务数据库迭代部分   |
-| 胡本霖 | 161250042 |      |
-| 乐盛捷 | 161250053 |      |
-| 雷诚   | 161250054 |      ||
+### 6.3 类的映射
+
+- **API网关**
+
+  | 组件     | 对应类                                                       |
+  | -------- | ------------------------------------------------------------ |
+  | 访问控制 | RequestFilter,                                               |
+  | 解析请求 | UserController, CinemaController,<br/>MovieController, PostController,<br/>OrderController |
+  | 缓存     | ServiceCache                                                 |
+  | 请求转发 | RPCProxy                                                     |
+  | 负载均衡 | SecurityChecker                                              |
+
+- **注册集群**
+
+  | 组件     | 对应类                         |
+  | -------- | ------------------------------ |
+  | 服务监听 | ServiceListener, ServiceInfo   |
+  | 服务分发 | ServiceDispatcher, ServiceInfo |
+  | 服务同步 | ServiceNode, NodeSynchronizer  |
+
+- **服务集群**
+
+  | 组件     | 对应类                                       |
+  | -------- | -------------------------------------------- |
+  | 服务监控 | ConcreteServiceImpl, ServiceRegistrant       |
+  | 权限认证 | ConcreteServiceImpl, AuthorityChecker        |
+  | 用户管理 | UserService, UserServiceImpl, Daofactory     |
+  | 电影管理 | MovieService, MovieServiceImpl, Daofactory   |
+  | 评论管理 | PostService, PostServiceImpl, Daofactory     |
+  | 订单管理 | OrderService, OrderServiceImpl, Daofactory   |
+  | 影院管理 | CinemaService, CinemaServiceImpl, Daofactory |
+
+- **数据库集群**
+
+  | 组件             | 对应类                                                       |
+  | ---------------- | ------------------------------------------------------------ |
+  | 数据操作组件     | UserDao, UserDaoImpl<br/>MovieDao, MovieDaoImpl<br/>CinemaDao, CinemaDaoImpl<br/>PostDao, PostDaoImpl<br/>OrderDao, OrderDaoImpl |
+  | 数据存储管理组件 | User, Movie, Cinema, Post, Order                             |
+  | 数据备份组件     | BackUp                                                       |
+
+- **通信机制**
+
+  | 组件         | 对应类                              |
+  | ------------ | ----------------------------------- |
+  | 通信检测组件 | ConnectionChecker, HeartbeatChecker |
+  | 数据接收组件 | CommunicationHandler                |
+  | 数据发送组件 | Message                             |
+  | 数据校验组件 | Validator, ParityValidator          |
+  | 数据加密组件 | Encryptor, Ssl_TslImpl              |
