@@ -1717,11 +1717,11 @@ CS架构复杂度低，前期开发成本较小，但后期维护成本更高，
   | -------- | -------------------------------------------- |
   | 服务监控 | ConcreteServiceImpl, ServiceRegistrant       |
   | 权限认证 | ConcreteServiceImpl, AuthorityChecker        |
-  | 用户管理 | UserService, UserServiceImpl, Daofactory     |
-  | 电影管理 | MovieService, MovieServiceImpl, Daofactory   |
-  | 评论管理 | PostService, PostServiceImpl, Daofactory     |
-  | 订单管理 | OrderService, OrderServiceImpl, Daofactory   |
-  | 影院管理 | CinemaService, CinemaServiceImpl, Daofactory |
+  | 用户管理 | UserService, UserServiceImpl, DaoFactory     |
+  | 电影管理 | MovieService, MovieServiceImpl, DaoFactory   |
+  | 评论管理 | PostService, PostServiceImpl, DaoFactory     |
+  | 订单管理 | OrderService, OrderServiceImpl, DaoFactory   |
+  | 影院管理 | CinemaService, CinemaServiceImpl, DaoFactory |
 
 - **数据库集群**
 
