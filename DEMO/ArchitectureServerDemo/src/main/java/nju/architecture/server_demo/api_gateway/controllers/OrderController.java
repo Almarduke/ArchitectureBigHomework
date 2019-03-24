@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/order")
 public class OrderController {
 
     private RPCProxy proxy;

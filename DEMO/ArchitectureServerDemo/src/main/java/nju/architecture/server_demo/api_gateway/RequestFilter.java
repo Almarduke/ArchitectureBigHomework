@@ -10,8 +10,7 @@ import java.io.IOException;
 
 public class RequestFilter extends GenericFilterBean implements Filter {
 
-    @Autowired
-    private SecurityChecker securityChecker;
+    private SecurityChecker securityChecker = new SecurityChecker();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
