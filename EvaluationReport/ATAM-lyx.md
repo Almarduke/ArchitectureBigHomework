@@ -6,6 +6,7 @@
 | 响应       | 尝试重新连接（连接成功或作出对方已下线的判断）               |
 | 架构决策   | UDP<br/>Heartbeat                                            |
 | 理由说明   | 可用性是该系统设计中着重点关注的质量属性，节点之间互相通信从而保持状态的同步是系统可用的前提条件。心跳监控器可能会因为一些不可控的原因未收到响应，这时需要能够及时恢复，优先级很高。为了保障这一点，值得采用高性能成本的措施（Heartbeat）。同时为了控制资源大小，采用更轻便传输协议标准。 |
+|架构图|![xx](https://github.com/Sephidator/ArchitectureBigHomework/raw/master/EvaluationReport/A1A2节点查询.png)|
 
 
 
@@ -17,6 +18,7 @@
 | 响应     | 尝试获取离线信息                                             |
 | 架构决策 | UDP                                                          |
 | 理由说明 | 在离线状态下，系统仍应该保持可用性。为了能够使用户上线后尽快获取离线消息，选择更轻便的传输协议标准 |
+|架构图|![xx](https://github.com/Sephidator/ArchitectureBigHomework/raw/master/EvaluationReport/A3离线消息.png)|
 
 
 
@@ -28,6 +30,7 @@
 | 响应     | 在不具备私钥的情况下，消息内容不能被破解                     |
 | 架构决策 | 密钥加密                                                     |
 | 理由说明 | 对用户隐私的保护是p2p这样去中心化架构的优势所在，系统需要对用户信息加密，防止不相关人等看到。在网络通信中截获数据包相对容易，这时便需要通过加密保护用户的信息安全。 |
+|架构图|![xx](https://github.com/Sephidator/ArchitectureBigHomework/raw/master/EvaluationReport/A6加密.png)|
 
 
 
