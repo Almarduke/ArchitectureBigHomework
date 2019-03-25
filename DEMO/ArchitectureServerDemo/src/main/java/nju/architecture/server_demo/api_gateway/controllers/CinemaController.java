@@ -3,6 +3,7 @@ package nju.architecture.server_demo.api_gateway.controllers;
 import nju.architecture.server_demo.api_gateway.RPCProxy;
 import nju.architecture.server_demo.database_cluster.entity.Cinema;
 import nju.architecture.server_demo.database_cluster.entity.Movie;
+import nju.architecture.server_demo.register_cluster.serviceinfo.ServiceInfo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/cinema")
 public class CinemaController {
 
-    private RPCProxy proxy;
+    private RPCProxy proxy = new RPCProxy();
 
     @PostMapping(value = "/addCinema")
     public long addCinema(@RequestParam Cinema cinema) {
@@ -28,6 +29,8 @@ public class CinemaController {
 
     @GetMapping(value = "/getAllCinemas")
     public List<Cinema> getAllCinemas() {
+        ServiceInfo serviceInfo = proxy.getServicePath("cinema");
+        proxy.callService(serviceInfo.getPath());
         System.out.println("getAllCinemas Controller ran");
         return new ArrayList<>();
     }

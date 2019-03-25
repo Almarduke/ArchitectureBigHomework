@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class ServiceNode implements ServiceListener, ServiceDispatcher, NodeSynchronizer {
 
-    public static ServiceNode leader;
+    public static ServiceNode leader = new ServiceNode();
 
     private long id;
 
@@ -29,6 +29,11 @@ public class ServiceNode implements ServiceListener, ServiceDispatcher, NodeSync
     @Override
     public ServiceInfo dispatchService(String name) {
         return new ServiceInfo();
+    }
+
+    @Override
+    public void sendHeartbeat() {
+        System.out.println("send heartbeat");
     }
 
     @Override

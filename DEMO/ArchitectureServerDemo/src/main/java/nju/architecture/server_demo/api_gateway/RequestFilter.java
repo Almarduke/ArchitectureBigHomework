@@ -1,7 +1,5 @@
 package nju.architecture.server_demo.api_gateway;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.*;
@@ -9,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RequestFilter extends GenericFilterBean implements Filter {
-
-    private SecurityChecker securityChecker = new SecurityChecker();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -24,9 +20,17 @@ public class RequestFilter extends GenericFilterBean implements Filter {
 
         System.out.println("********** CORS Configuration Completed **********");
 
-        securityChecker.flowControl(null);
-        securityChecker.isValidPath(request.getLocalAddr());
+        if (isValidPath(request)) {
+            System.out.println("Valid Access permitted");
+        } else {
+            System.out.println("Invalid Access denied");
+        }
 
+        System.out.println("Access Control success");
         chain.doFilter(request, response);
+    }
+
+    private boolean isValidPath(ServletRequest request) {
+        return true;
     }
 }
